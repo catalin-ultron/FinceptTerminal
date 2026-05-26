@@ -9,7 +9,9 @@ echo "Installing system Qt6 dependencies..."
 sudo apt-get update -qq
 sudo apt-get install -y --no-install-recommends \
   qt6-base-dev qt6-charts-dev qt6-tools-dev qt6-websockets-dev \
-  qt6-multimedia-dev qt6-speech-dev libgl1-mesa-dev
+  qt6-multimedia-dev qt6-speech-dev \
+  qt6-base-private-dev qt6-declarative-private-dev qt6-websockets-private-dev \
+  libgl1-mesa-dev
 
 echo "Configuring with CMake..."
 cd "$(dirname "$0")/fincept-qt"
