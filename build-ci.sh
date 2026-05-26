@@ -8,13 +8,15 @@ set -euo pipefail
 echo "Installing system Qt6 dependencies..."
 sudo apt-get update -qq
 sudo apt-get install -y --no-install-recommends \
-  qt6-base-dev qt6-charts-dev qt6-tools-dev qt6-websockets-dev libgl1-mesa-dev
+  qt6-base-dev qt6-charts-dev qt6-tools-dev qt6-websockets-dev \
+  qt6-multimedia-dev qt6-speech-dev libgl1-mesa-dev
 
 echo "Configuring with CMake..."
 cd "$(dirname "$0")/fincept-qt"
+# Use /usr as prefix so CMake finds configs under /usr/lib/<arch>/cmake/
 cmake -B build/linux-release -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu" \
+  -DCMAKE_PREFIX_PATH="/usr" \
   -DFINCEPT_ALLOW_QT_DRIFT=ON \
   -DOPENSSL_ROOT_DIR=/usr
 
