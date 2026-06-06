@@ -123,7 +123,11 @@ async function serveAsset(request, env) {
 
 /* ── connect.html with token injection ──────────────────────────────── */
 async function serveConnectHtml(request, env) {
-  const asset = await env.ASSETS.fetch(request);
+  // Fetch the template (not a publicly-routed static file) so Pages
+  // doesn't serve it directly and bypass the Worker.
+  const templateUrl = new URL(request.url);
+  templateUrl.pathname = "/connect-template.html";
+  const asset = await env.ASSETS.fetch(new Request(templateUrl, request));
   let html = await asset.text();
 
   const nonce = generateHex(16);
